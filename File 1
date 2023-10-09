@@ -1,0 +1,132 @@
+/* Name: Kayla Heady
+Date: 2/16/22
+Assignment: Homework 5
+Due Date: 2/21/22
+About this project: This program will calculate the NFL passer rating for 2 quarterbacks using the real formula used in the National Football League.
+The program will display the passer rating for each quarterback, and then prints a message detailing who's rating was the best, and what the difference between the ratings was. 
+The program will then allow the user to repeat this process, if they choose.
+Assumptions: (write any assumptions made here (ex: assumes correct user input))
+
+All work below was performed by (Kayla Heady) */
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+double getPasserRating(double, double, double, double, double); //declaring funtions 
+
+int main()
+{
+    int attempts, completions, passing, touchdown, interceptions; // delclaring 
+    int attempts2, completions2, passing2, touchdown2, interceptions2; 
+    double rate;
+    char user; 
+    
+    do 
+    {
+    cout<<"Welcome to the NFL Quarterback Passer Rating Calculator!" << endl;
+    
+    cout << '\n' << "Enter single game information for Player A: " << endl; //start and getting input
+    cout << "Attempts: ";
+    cin >> attempts; 
+    cout << "Completions: ";
+    cin >> completions;
+    cout << "Passing Yards: ";
+    cin >> passing;
+    cout << "Touchdowns: ";
+    cin >> touchdown;
+    cout << "Interceptions: ";
+    cin >> interceptions;
+    
+    cout << '\n' << "Enter single game information for Player B: " << endl;
+    cout << "Attempts: ";
+    cin >> attempts2; 
+    cout << "Completions: ";
+    cin >> completions2;
+    cout << "Passing Yards: ";
+    cin >> passing2;
+    cout << "Touchdowns: ";
+    cin >> touchdown2;
+    cout << "Interceptions: ";
+    cin >> interceptions2;
+
+    
+     cout << fixed << showpoint << setprecision(1); //for 1 decimal places 
+     cout << '\n' << "Player A's single game passer rating: "; 
+     double a = getPasserRating(attempts, completions, passing, touchdown, interceptions);
+     cout << a << endl;
+     cout << "Player B's single game passer rating: "; 
+     double b =  getPasserRating(attempts2, completions2, passing2, touchdown2, interceptions2);
+     cout << b << endl;
+     
+     if(b > a)
+     {
+         double result = b - a;
+         cout << "Player B was better than Player A by a difference of " << result << endl; //differences 
+     }
+       
+     else if (a > b)
+     {
+        double result = a - b;
+        cout << "Player A was better than Player B by a difference of " << result << endl;
+     }
+    else if (b == a)
+        cout << "Player A and B have the same rating!"<< endl;
+     
+     
+    if (b <= 158.33)
+    {
+        cout << "Player B had a PERFECT passer rating." << endl; //perfect ratings 
+    }
+    else if (a <= 158.33)
+        cout << "Player A had a PERFECT passer rating." << endl;
+        
+    cout << '\n' << "Would you like to compare another pair of players? (Y or N)";  //asking user if they want more to compare 
+    cin >> user;
+    int compare = 2; 
+    if (user == 'Y' || user == 'y' )
+    {
+        compare = compare + 2; 
+    }
+    else if (user == 'N' || user == 'n' )
+    {
+        cout << "You compared " << compare << " pairs of players";
+    }
+    else
+    {
+        cout << "Invalid entry. Exiting program..."; //if they put any other entry 
+    }
+    }while(user == 'Y' || user == 'y');
+    
+   
+
+    return 0;
+}
+
+double getPasserRating(double attempts,double completions,double passing,double touchdown,double interceptions) //function 
+{
+    
+   // formula
+    double a = (completions/ attempts - .3) *5;  
+    double b = (passing / attempts - 3) * .25;
+    double c = (touchdown/ attempts) * 20; 
+    double d = 2.375- (interceptions / attempts * 25); 
+    double e = ((a + b + c + d) / 6 *100);
+    if (b > 2.375 )
+        b = 2.375; 
+    else if (c > 2.375 )
+        c = 2.375; 
+    else if (d > 2.375 )
+        d = 2.375; 
+        
+    if (attempts == 0)
+        e = 0; 
+    return e;
+
+    
+}
+
+
+
+
+
+
